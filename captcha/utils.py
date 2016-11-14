@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (C) 2007-2016, Raffaele Salmaso <raffaele@salmaso.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,15 +18,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
 from hashlib import sha1
 from random import choice
-from django.utils import six
 from . import settings
 
 
 def encode(value):
-    answer = six.text_type(value)
+    answer = str(value)
     to_encode = (settings.SECRET_KEY + answer).encode('utf-8')
     return sha1(to_encode).hexdigest()
 

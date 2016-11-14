@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (C) 2007-2016, Raffaele Salmaso <raffaele@salmaso.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,10 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
 from django import forms
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from .utils import get_new_values, encode
 from . import settings
 
@@ -49,7 +46,7 @@ class CaptchaWidget(forms.MultiWidget):
             forms.TextInput(attrs=widget_attrs),
             forms.HiddenInput()
         ]
-        super(CaptchaWidget, self).__init__(widgets, attrs)
+        super().__init__(widgets, attrs)
 
     def decompress(self, value):
         return [None, None]
@@ -79,4 +76,4 @@ class CaptchaWidget(forms.MultiWidget):
         x, y, operator, answer = get_new_values(self.values, self.operators)
         self.question_html = self.render_question(x, y, operator)
         value = ["", encode(answer)]
-        return super(CaptchaWidget, self).render(name, value, attrs=attrs)
+        return super().render(name, value, attrs=attrs)

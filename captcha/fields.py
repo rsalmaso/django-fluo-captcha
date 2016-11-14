@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (C) 2007-2016, Raffaele Salmaso <raffaele@salmaso.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,10 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from .utils import encode
 from .widgets import CaptchaWidget
 
@@ -38,7 +35,7 @@ class CaptchaField(forms.MultiValueField):
 
     def __init__(self, *args, **kwargs):
         widget = self.get_widget(kwargs)
-        super(CaptchaField, self).__init__(fields=(), widget=widget, *args, **kwargs)
+        super().__init__(fields=(), widget=widget, *args, **kwargs)
 
         error_messages = {
             "invalid": self.error_messages["invalid_number"],
