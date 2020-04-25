@@ -21,15 +21,15 @@
 from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from .utils import get_new_values, encode
-from . import settings
 
+from . import settings
+from .utils import encode, get_new_values
 
 OPERATORS = list(settings.OPERATIONS)
 
 
 class CaptchaWidget(forms.MultiWidget):
-    output = "<span class=\"{question_class}\">{question}</span>{text_input}{hidden_input}"
+    output = '<span class="{question_class}">{question}</span>{text_input}{hidden_input}'
     values = settings.NUMBERS
     operators = OPERATORS
     question = _("Are you human? What is {x} {operator} {y}? ")
@@ -42,10 +42,7 @@ class CaptchaWidget(forms.MultiWidget):
         self.question_tmpl = question or self.question
         widget_attrs = {"size": "5"}
         widget_attrs.update(attrs or {})
-        widgets = [
-            forms.TextInput(attrs=widget_attrs),
-            forms.HiddenInput()
-        ]
+        widgets = [forms.TextInput(attrs=widget_attrs), forms.HiddenInput()]
         super().__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -65,11 +62,7 @@ class CaptchaWidget(forms.MultiWidget):
 
     def render_question(self, x, y, operator):
         operator = "&times;" if operator == "*" else operator
-        question = self.question_tmpl.format(
-            x=x,
-            operator=operator,
-            y=y,
-        )
+        question = self.question_tmpl.format(x=x, operator=operator, y=y)
         return mark_safe(question)
 
     def render(self, name, value, attrs=None):

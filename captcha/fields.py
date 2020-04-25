@@ -21,6 +21,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+
 from .utils import encode
 from .widgets import CaptchaWidget
 
@@ -41,14 +42,8 @@ class CaptchaField(forms.MultiValueField):
             "invalid": self.error_messages["invalid_number"],
         }
         self.fields = [
-            forms.IntegerField(
-                required=False,
-                error_messages=error_messages,
-                localize=self.localize,
-            ),
-            forms.CharField(
-                required=False,
-            ),
+            forms.IntegerField(required=False, error_messages=error_messages, localize=self.localize),
+            forms.CharField(required=False),
         ]
 
     def compress(self, data_list):
@@ -71,8 +66,7 @@ class CaptchaField(forms.MultiValueField):
         widget = kwargs.pop("widget", None)
         if widget and params:
             msg = "{} must be omitted when widget is provided for {}.".format(
-                " and ".join(list(params)),
-                self.__class__.__name__,
+                " and ".join(list(params)), self.__class__.__name__,
             )
             raise TypeError(msg)
         elif not widget:

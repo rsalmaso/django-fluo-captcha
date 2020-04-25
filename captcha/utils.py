@@ -20,12 +20,13 @@
 
 from hashlib import sha1
 from random import choice
+
 from . import settings
 
 
 def encode(value):
     answer = str(value)
-    to_encode = (settings.SECRET_KEY + answer).encode('utf-8')
+    to_encode = (settings.SECRET_KEY + answer).encode("utf-8")
     return sha1(to_encode).hexdigest()
 
 

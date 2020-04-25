@@ -20,10 +20,6 @@
 
 from django.conf import settings
 
-
-OPERATIONS = getattr(settings, "CAPTCHA_OPERATIONS", {
-    "+": lambda x, y: x + y,
-    "-": lambda x, y: x - y,
-})
+OPERATIONS = getattr(settings, "CAPTCHA_OPERATIONS", {"+": lambda x, y: x + y, "-": lambda x, y: x - y})
 NUMBERS = getattr(settings, "CAPTCHA_NUMBERS", [1, 2, 3, 4, 5, 6, 7])
 SECRET_KEY = getattr(settings, "SECRET_KEY")
